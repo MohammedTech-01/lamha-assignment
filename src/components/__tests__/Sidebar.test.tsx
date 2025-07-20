@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Sidebar from "../Sidebar";
+import lamhaLogo from "../../assets/lamha.webp";
+
 
 // Mock Ant Design components
 jest.mock("antd", () => ({
@@ -133,15 +135,15 @@ describe("Sidebar Component", () => {
   test("renders logo image with fallback", () => {
     render(<Sidebar {...defaultProps} />);
 
-    const logoImage = screen.getByAltText("FinanceApp Logo");
+    const logoImage = screen.getByAltText("Logo");
     expect(logoImage).toBeInTheDocument();
-    expect(logoImage).toHaveAttribute("src", "/lamha.webp");
+    expect(logoImage).toHaveAttribute("src", lamhaLogo);
   });
 
   test("handles image error and shows fallback", () => {
     render(<Sidebar {...defaultProps} />);
 
-    const logoImage = screen.getByAltText("FinanceApp Logo");
+    const logoImage = screen.getByAltText("Logo");
 
     // Simulate image error
     fireEvent.error(logoImage);

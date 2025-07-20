@@ -17,10 +17,8 @@ A modern, responsive financial transaction management application built with Rea
 - [Available Scripts](#available-scripts)
 - [Testing](#testing)
 - [Documentation](#documentation)
-- [Environment Variables](#environment-variables)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [Troubleshooting](#troubleshooting)
+- [Coding Standards](#Coding Standards)
+- [Acknowledgments](#Acknowledgments)
 
 ## Features
 
@@ -160,12 +158,6 @@ npm test
 
 # Run tests with coverage
 npm test -- --coverage
-
-# Build for production
-npm run build
-
-# Analyze bundle size
-npm run build -- --stats
 ```
 
 ### Documentation
@@ -173,9 +165,6 @@ npm run build -- --stats
 ```bash
 # Generate TypeDoc documentation
 npm run docs
-
-# Generate JSDoc documentation (if configured)
-npm run jsdoc
 ```
 
 ## Testing
@@ -212,8 +201,6 @@ npm install --save-dev typedoc
 # Generate documentation
 npx typedoc --out docs src
 
-# View documentation
-open docs/index.html
 ```
 
 ## Coding Standards
