@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/lamha-assignment/static/css/main.847b465e.css",
+    "main.js": "/lamha-assignment/static/js/main.83684731.js",
+    "index.html": "/lamha-assignment/index.html",
+    "main.847b465e.css.map": "/lamha-assignment/static/css/main.847b465e.css.map",
+    "main.83684731.js.map": "/lamha-assignment/static/js/main.83684731.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.847b465e.css",
+    "static/js/main.83684731.js"
+  ]
+}
