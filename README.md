@@ -49,7 +49,6 @@ A modern, responsive financial transaction management application built with Rea
 ### Development Tools
 
 - **Create React App** - Build tooling
-- **ESLint** - Code linting
 - **Prettier** - Code formatting
 - **TypeDoc** - Documentation generation
 - **Jest & React Testing Library** - Testing
@@ -106,21 +105,14 @@ npm start
 
 The application will open at [http://localhost:3000](http://localhost:3000)
 
-### Production Build
-
-Create an optimized production build:
-
-```bash
-npm run build
-```
-
 ## Project Structure
 
 ```
 lamha-assignment/
 ├── public/
 │   ├── index.html
-│   ├── favicon.ico
+│   ├── lamha.ico
+│   ├── manifest.json
 │   └── robots.txt
 ├── src/
 │   ├── assets/
@@ -207,28 +199,6 @@ npm run jsdoc
    npm test TransactionTable.test
    ```
 
-### Writing Tests
-
-Example test structure:
-
-```typescript
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import TransactionTable from '../TransactionTable';
-
-describe('TransactionTable', () => {
-  test('renders transactions correctly', () => {
-    const mockTransactions = [
-      // ... mock data
-    ];
-
-    render(<TransactionTable transactions={mockTransactions} />);
-
-    expect(screen.getByText('Adobe Inc.')).toBeInTheDocument();
-  });
-});
-```
-
 ## Documentation
 
 ### Generate Documentation
@@ -246,34 +216,7 @@ npx typedoc --out docs src
 open docs/index.html
 ```
 
-## Deployment
-
-### Deploy to GitHub Pages
-
-1. Install gh-pages:
-
-   ```bash
-   npm install --save-dev gh-pages
-   ```
-
-2. Add to package.json:
-
-   ```json
-   {
-     "homepage": "https://MohammedTech-01.github.io/lamha-assignment",
-     "scripts": {
-       "predeploy": "npm run build",
-       "deploy": "gh-pages -d build"
-     }
-   }
-   ```
-
-3. Deploy:
-   ```bash
-   npm run deploy
-   ```
-
-### Coding Standards
+## Coding Standards
 
 - Use TypeScript for all new components
 - Follow the existing code style
