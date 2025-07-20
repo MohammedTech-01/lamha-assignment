@@ -118,8 +118,8 @@ describe('Validation Utilities', () => {
 
   describe('validateInvoiceNumber', () => {
     test('valid values', () => {
-      expect(validateInvoiceNumber('INV001')).toEqual({ isValid: true });
-      expect(validateInvoiceNumber('INV_2024-01')).toEqual({ isValid: true });
+      expect(validateInvoiceNumber('SA-001')).toEqual({ isValid: true });
+      expect(validateInvoiceNumber('SA-20240719')).toEqual({ isValid: true });
     });
 
     test('empty or blank', () => {
@@ -134,20 +134,29 @@ describe('Validation Utilities', () => {
     });
 
     test('too long', () => {
-      const long = 'a'.repeat(51);
+      const long = 'SA-' + '1'.repeat(48); // 51 chars total
       expect(validateInvoiceNumber(long)).toEqual({
         isValid: false,
         error: 'Invoice number is too long (max 50 characters)',
       });
     });
 
-    test('invalid characters', () => {
-      expect(validateInvoiceNumber('INV@001')).toEqual({
+    test('invalid characters or format', () => {
+      expect(validateInvoiceNumber('SA_001')).toEqual({
         isValid: false,
-        error: 'Invoice number can only contain letters, numbers, dashes, and underscores',
+        error: 'Invoice number must follow the format SA-{numbers} (e.g., SA-12345)',
+      });
+      expect(validateInvoiceNumber('SA-001A')).toEqual({
+        isValid: false,
+        error: 'Invoice number must follow the format SA-{numbers} (e.g., SA-12345)',
+      });
+      expect(validateInvoiceNumber('SAA-001')).toEqual({
+        isValid: false,
+        error: 'Invoice number must follow the format SA-{numbers} (e.g., SA-12345)',
       });
     });
   });
+
 
   describe('validateVendorName', () => {
     test('valid vendor names', () => {
