@@ -17,7 +17,7 @@ A modern, responsive financial transaction management application built with Rea
 - [Available Scripts](#available-scripts)
 - [Testing](#testing)
 - [Documentation](#documentation)
-- [Coding Standards](#Coding Standards)
+- [Coding Standards](#Coding-Standards)
 - [Acknowledgments](#Acknowledgments)
 
 ## Features
