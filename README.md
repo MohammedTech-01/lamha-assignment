@@ -2,10 +2,9 @@
 
 A modern, responsive financial transaction management application built with React, TypeScript, and Ant Design.
 
-![React](https://img.shields.io/badge/React-18.2.0-blue)
+![React](https://img.shields.io/badge/React-19.1.0-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue)
-![Ant Design](https://img.shields.io/badge/Ant%20Design-5.x-orange)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Ant Design](https://img.shields.io/badge/Ant%20Design-5.26.5-orange)
 
 ## Table of Contents
 
@@ -26,7 +25,6 @@ A modern, responsive financial transaction management application built with Rea
 ## Features
 
 - 📊 **Transaction Management**: Create, view, edit, and delete financial transactions
-- 🔍 **Advanced Filtering**: Filter by status, date range, and search across multiple fields
 - 📱 **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - 🎨 **Modern UI**: Clean interface built with Ant Design components
 - 🔒 **Input Validation**: Comprehensive form validation for data integrity
@@ -37,15 +35,14 @@ A modern, responsive financial transaction management application built with Rea
 ## Tech Stack
 
 ### Core Technologies
-- **React 18.2.0** - UI library
+- **React 19.1.0-** - UI library
 - **TypeScript 4.9.5** - Type safety
-- **Ant Design 5.x** - UI component library
-- **Tailwind CSS 3.x** - Utility-first CSS framework
+- **Ant Design 5.26.5** - UI component library
+- **Tailwind CSS 3.4.17** - Utility-first CSS framework
 
 ### Key Libraries
 - **dayjs** - Date manipulation
 - **lucide-react** - Icon library
-- **react-router-dom** - Routing (if implemented)
 
 ### Development Tools
 - **Create React App** - Build tooling
@@ -73,18 +70,13 @@ git --version
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/lamha-assignment.git
+   git clone https://github.com/MohammedTech-01/lamha-assignment.git
    cd lamha-assignment
    ```
 
 2. **Install dependencies**
    ```bash
    npm install
-   ```
-   
-   Or using yarn:
-   ```bash
-   yarn install
    ```
 
 3. **Install additional required packages** (if not already in package.json)
@@ -111,25 +103,21 @@ Create an optimized production build:
 npm run build
 ```
 
-### Serve Production Build
-Test the production build locally:
-```bash
-npm install -g serve
-serve -s build
-```
-
 ## Project Structure
 
 ```
 lamha-assignment/
 ├── public/
 │   ├── index.html
-│   └── favicon.ico
+│   ├── favicon.ico
+│   └── robots.txt
 ├── src/
 │   ├── assets/
 │   │   └── lamha.webp          # Logo
 │   ├── components/
 │   │   ├── __tests__/          # Component tests
+│   │   │   ├── Sidebar.test.tsx
+│   │   │   └── TransactionTable.test.tsx
 │   │   ├── ErrorBoundary.tsx   # Error handling
 │   │   ├── Header.tsx          # Header with filters
 │   │   ├── Layout.tsx          # Main layout wrapper
@@ -139,15 +127,20 @@ lamha-assignment/
 │   ├── types/
 │   │   └── index.ts            # TypeScript interfaces
 │   ├── utils/
+│   │   ├── __tests__/          # Component tests
+│   │   │   └── validation.test.ts
 │   │   └── validation.ts       # Form validation utilities
 │   ├── App.tsx                 # Main app component
-│   ├── App.css                 # Global styles
 │   ├── index.tsx               # Entry point
-│   └── index.css               # Tailwind imports
+│   ├── index.css               # Tailwind imports
+│   └── react-app-env.d.ts      
 ├── .gitignore
+├── package-lock.json
 ├── package.json
-├── tsconfig.json               # TypeScript config
+├── postcss.config.js
 ├── tailwind.config.js          # Tailwind CSS config
+├── tsconfig.json               # TypeScript config
+├── typedoc.json
 └── README.md
 ```
 
