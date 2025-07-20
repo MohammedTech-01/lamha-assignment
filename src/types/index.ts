@@ -1,5 +1,5 @@
-import React from 'react';
-import 'antd/dist/reset.css';
+import React from "react";
+import "antd/dist/reset.css";
 
 // Sidebar related types
 export interface SidebarItem {
@@ -27,7 +27,7 @@ export interface Transaction {
   vendor: string;
   invoiceNumber: string;
   amount: number;
-  status: 'Pending' | 'Approved';
+  status: "Pending" | "Approved";
 }
 
 export interface TransactionTableProps {

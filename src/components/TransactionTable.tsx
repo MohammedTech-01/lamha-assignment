@@ -1,25 +1,26 @@
-import React from 'react';
-import { Table, Tag, Card, Space, Typography, Dropdown, Button } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import type { MenuProps } from 'antd';
-import { MoreOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { SaudiRiyal } from 'lucide-react';
-import { Transaction, TransactionTableProps } from '../types';
+import React from "react";
+import { Table, Tag, Card, Space, Typography, Dropdown, Button } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import type { MenuProps } from "antd";
+import { MoreOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { SaudiRiyal } from "lucide-react";
+import { Transaction, TransactionTableProps } from "../types";
 
 const { Text } = Typography;
 
 /**
  * TransactionTable Component
- * 
+ *
  * A responsive table component that displays financial transactions.
  * - Desktop/Tablet: Shows data in a traditional table format
  * - Mobile: Shows data as stacked cards for better mobile UX
- * 
+ *
  * @param {TransactionTableProps} props - Component props
  * @param {Transaction[]} props.transactions - Array of transaction objects to display
  */
-const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => {
-  
+const TransactionTable: React.FC<TransactionTableProps> = ({
+  transactions,
+}) => {
   /**
    * Renders a colored status tag based on the transaction status
    * @param {string} status - Transaction status ('Approved' or 'Pending')
@@ -27,9 +28,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
    */
   const getStatusTag = (status: string) => {
     return (
-      <Tag color={status === 'Approved' ? 'success' : 'warning'}>
-        {status}
-      </Tag>
+      <Tag color={status === "Approved" ? "success" : "warning"}>{status}</Tag>
     );
   };
 
@@ -39,7 +38,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
    * @returns {string} Formatted number string
    */
   const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('en-SA', {
+    return new Intl.NumberFormat("en-SA", {
       // Using Saudi Arabia locale for number formatting
       // This will format numbers with commas as thousand separators
     }).format(amount);
@@ -64,18 +63,18 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
    * Dropdown menu items for row actions
    * Each transaction row has these action options
    */
-  const actionItems: MenuProps['items'] = [
+  const actionItems: MenuProps["items"] = [
     {
-      key: 'view',
-      label: 'View Details',
+      key: "view",
+      label: "View Details",
     },
     {
-      key: 'edit',
-      label: 'Edit',
+      key: "edit",
+      label: "Edit",
     },
     {
-      key: 'delete',
-      label: 'Delete',
+      key: "delete",
+      label: "Delete",
       danger: true, // Makes the delete option appear in red
     },
   ];
@@ -86,53 +85,53 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
    */
   const columns: ColumnsType<Transaction> = [
     {
-      title: 'Status',
-      dataIndex: 'status', // Maps to transaction.status
-      key: 'status',
+      title: "Status",
+      dataIndex: "status", // Maps to transaction.status
+      key: "status",
       render: (status) => getStatusTag(status), // Custom render for status tags
     },
     {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
     },
     {
-      title: 'Member',
-      dataIndex: 'member',
-      key: 'member',
+      title: "Member",
+      dataIndex: "member",
+      key: "member",
     },
     {
-      title: 'Budget',
-      dataIndex: 'budget',
-      key: 'budget',
+      title: "Budget",
+      dataIndex: "budget",
+      key: "budget",
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
     },
     {
-      title: 'Vendor',
-      dataIndex: 'vendor',
-      key: 'vendor',
+      title: "Vendor",
+      dataIndex: "vendor",
+      key: "vendor",
     },
     {
-      title: 'Invoice Number',
-      dataIndex: 'invoiceNumber',
-      key: 'invoiceNumber',
+      title: "Invoice Number",
+      dataIndex: "invoiceNumber",
+      key: "invoiceNumber",
     },
     {
-      title: 'Amount',
-      dataIndex: 'amount',
-      key: 'amount',
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
       render: (amount: number) => <AmountWithIcon amount={amount} />, // Custom render with icon
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: "Actions",
+      key: "actions",
       render: () => (
         // Dropdown menu for row actions (view, edit, delete)
-        <Dropdown menu={{ items: actionItems }} trigger={['click']}>
+        <Dropdown menu={{ items: actionItems }} trigger={["click"]}>
           <Button type="text" icon={<MoreOutlined />} />
         </Dropdown>
       ),
@@ -142,24 +141,30 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
   /**
    * Mobile Card Component
    * Renders a single transaction as a card for mobile devices
-   * 
+   *
    * @param {Object} props - Component props
    * @param {Transaction} props.transaction - Single transaction object to display
    */
-  const MobileTransactionCard = ({ transaction }: { transaction: Transaction }) => (
+  const MobileTransactionCard = ({
+    transaction,
+  }: {
+    transaction: Transaction;
+  }) => (
     <Card className="mb-3" hoverable>
       {/* Card Header: Vendor info and status */}
       <div className="flex justify-between items-start mb-2">
         {/* Left side: Vendor name and date */}
         <Space direction="vertical" size={0}>
           <Text strong>{transaction.vendor}</Text>
-          <Text type="secondary" className="text-xs">{transaction.date}</Text>
+          <Text type="secondary" className="text-xs">
+            {transaction.date}
+          </Text>
         </Space>
-        
+
         {/* Right side: Status tag and actions dropdown */}
         <Space>
           {getStatusTag(transaction.status)}
-          <Dropdown menu={{ items: actionItems }} trigger={['click']}>
+          <Dropdown menu={{ items: actionItems }} trigger={["click"]}>
             <Button type="text" icon={<EllipsisOutlined />} size="small" />
           </Dropdown>
         </Space>
@@ -169,33 +174,53 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
       <div className="grid grid-cols-2 gap-3 mt-3">
         {/* Member field */}
         <div>
-          <Text type="secondary" className="text-xs">Member</Text>
-          <div><Text>{transaction.member}</Text></div>
+          <Text type="secondary" className="text-xs">
+            Member
+          </Text>
+          <div>
+            <Text>{transaction.member}</Text>
+          </div>
         </div>
-        
+
         {/* Amount field with currency icon */}
         <div>
-          <Text type="secondary" className="text-xs">Amount</Text>
-          <div><Text strong><AmountWithIcon amount={transaction.amount} /></Text></div>
+          <Text type="secondary" className="text-xs">
+            Amount
+          </Text>
+          <div>
+            <Text strong>
+              <AmountWithIcon amount={transaction.amount} />
+            </Text>
+          </div>
         </div>
-        
+
         {/* Budget field */}
         <div>
-          <Text type="secondary" className="text-xs">Budget</Text>
-          <div><Text>{transaction.budget}</Text></div>
+          <Text type="secondary" className="text-xs">
+            Budget
+          </Text>
+          <div>
+            <Text>{transaction.budget}</Text>
+          </div>
         </div>
-        
+
         {/* Type field */}
         <div>
-          <Text type="secondary" className="text-xs">Type</Text>
-          <div><Text>{transaction.type}</Text></div>
+          <Text type="secondary" className="text-xs">
+            Type
+          </Text>
+          <div>
+            <Text>{transaction.type}</Text>
+          </div>
         </div>
       </div>
 
       {/* Optional invoice number - only shown if it exists */}
       {transaction.invoiceNumber && (
         <div className="mt-2">
-          <Text type="secondary" className="text-xs">Invoice #: </Text>
+          <Text type="secondary" className="text-xs">
+            Invoice #:{" "}
+          </Text>
           <Text className="text-xs">{transaction.invoiceNumber}</Text>
         </div>
       )}
@@ -212,11 +237,12 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
         <Table
           columns={columns}
           // Add unique key to each row for React rendering optimization
-          dataSource={transactions.map(t => ({ ...t, key: t.id }))}
+          dataSource={transactions.map((t) => ({ ...t, key: t.id }))}
           pagination={{
             pageSize: 10, // Show 10 items per page by default
             showSizeChanger: true, // Allow users to change page size
-            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`, // Display item count
+            showTotal: (total, range) =>
+              `${range[0]}-${range[1]} of ${total} items`, // Display item count
           }}
           scroll={{ x: 800 }} // Enable horizontal scroll for smaller screens
         />
@@ -228,7 +254,10 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
       */}
       <div className="sm:hidden">
         {transactions.map((transaction) => (
-          <MobileTransactionCard key={transaction.id} transaction={transaction} />
+          <MobileTransactionCard
+            key={transaction.id}
+            transaction={transaction}
+          />
         ))}
       </div>
     </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Modal,
   Form,
@@ -10,14 +10,14 @@ import {
   message,
   Row,
   Col,
-  Space
-} from 'antd';
-import dayjs from 'dayjs';
+  Space,
+} from "antd";
+import dayjs from "dayjs";
 import {
   validateAmount,
   validateInvoiceNumber,
   validateVendorName,
-} from '../utils/validation';
+} from "../utils/validation";
 
 /**
  * Form data interface
@@ -42,15 +42,15 @@ interface TransactionFormProps {
   onClose: () => void;
   onSubmit: (data: FormData) => void;
   initialData?: FormData;
-  mode?: 'create' | 'edit';
+  mode?: "create" | "edit";
 }
 
 /**
  * TransactionForm Component
- * 
+ *
  * A form modal for creating or editing financial transactions.
  * Features validation, responsive layout, and clean error handling.
- * 
+ *
  * @param {TransactionFormProps} props - Component props
  * @param {boolean} props.visible - Controls modal visibility
  * @param {Function} props.onClose - Callback when form is closed
@@ -63,7 +63,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   onClose,
   onSubmit,
   initialData,
-  mode = 'create'
+  mode = "create",
 }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -75,26 +75,28 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const handleSubmit = async (values: any) => {
     try {
       setLoading(true);
-      
+
       // Format the data
       const formData: FormData = {
         ...values,
-        date: values.date.format('YYYY-MM-DD'),
+        date: values.date.format("YYYY-MM-DD"),
         amount: Number(values.amount),
-        status: mode === 'create' ? 'Pending' : values.status
+        status: mode === "create" ? "Pending" : values.status,
       };
 
       // Call parent submit function
       await onSubmit(formData);
-      
+
       // Success message
-      message.success(`Transaction ${mode === 'create' ? 'created' : 'updated'} successfully!`);
-      
+      message.success(
+        `Transaction ${mode === "create" ? "created" : "updated"} successfully!`,
+      );
+
       // Reset form and close
       form.resetFields();
       onClose();
     } catch (error) {
-      message.error('Failed to save transaction');
+      message.error("Failed to save transaction");
     } finally {
       setLoading(false);
     }
@@ -111,7 +113,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
   return (
     <Modal
-      title={mode === 'create' ? 'Create New Transaction' : 'Edit Transaction'}
+      title={mode === "create" ? "Create New Transaction" : "Edit Transaction"}
       open={visible}
       onCancel={handleClose}
       footer={null}
@@ -122,10 +124,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         layout="vertical"
         onFinish={handleSubmit}
         initialValues={{
-          type: 'Expense',
-          budget: 'General',
+          type: "Expense",
+          budget: "General",
           ...initialData,
-          date: initialData?.date ? dayjs(initialData.date) : dayjs()
+          date: initialData?.date ? dayjs(initialData.date) : dayjs(),
         }}
       >
         {/* Date and Type Row */}
@@ -135,19 +137,19 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               name="date"
               label="Date"
               rules={[
-                { required: true, message: 'Please select date' },
+                { required: true, message: "Please select date" },
                 {
                   validator: (_, value) => {
                     if (value && value.isAfter(dayjs())) {
-                      return Promise.reject('Date cannot be in the future');
+                      return Promise.reject("Date cannot be in the future");
                     }
                     return Promise.resolve();
-                  }
-                }
+                  },
+                },
               ]}
             >
-              <DatePicker 
-                style={{ width: '100%' }}
+              <DatePicker
+                style={{ width: "100%" }}
                 format="YYYY-MM-DD"
                 disabledDate={(current) => current && current > dayjs()}
               />
@@ -158,7 +160,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             <Form.Item
               name="type"
               label="Type"
-              rules={[{ required: true, message: 'Please select type' }]}
+              rules={[{ required: true, message: "Please select type" }]}
             >
               <Select>
                 <Select.Option value="Expense">Expense</Select.Option>
@@ -179,16 +181,16 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               name="vendor"
               label="Vendor"
               rules={[
-                { required: true, message: 'Please enter vendor name' },
+                { required: true, message: "Please enter vendor name" },
                 {
                   validator: (_, value) => {
                     if (!value) return Promise.resolve();
                     const result = validateVendorName(value);
-                    return result.isValid 
-                      ? Promise.resolve() 
+                    return result.isValid
+                      ? Promise.resolve()
                       : Promise.reject(result.error);
-                  }
-                }
+                  },
+                },
               ]}
             >
               <Input placeholder="e.g., Amazon Web" maxLength={100} />
@@ -200,25 +202,28 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               name="amount"
               label="Amount (SAR)"
               rules={[
-                { required: true, message: 'Please enter amount' },
+                { required: true, message: "Please enter amount" },
                 {
                   validator: (_, value) => {
-                    if (value === undefined || value === null) return Promise.resolve();
+                    if (value === undefined || value === null)
+                      return Promise.resolve();
                     const result = validateAmount(value);
-                    return result.isValid 
-                      ? Promise.resolve() 
+                    return result.isValid
+                      ? Promise.resolve()
                       : Promise.reject(result.error);
-                  }
-                }
+                  },
+                },
               ]}
             >
               <InputNumber
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 placeholder="0.00"
                 min={0}
                 max={1000000}
                 precision={2}
-                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
               />
             </Form.Item>
           </Col>
@@ -231,16 +236,16 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
               name="invoiceNumber"
               label="Invoice Number"
               rules={[
-                { required: true, message: 'Please enter invoice number' },
+                { required: true, message: "Please enter invoice number" },
                 {
                   validator: (_, value) => {
                     if (!value) return Promise.resolve();
                     const result = validateInvoiceNumber(value);
-                    return result.isValid 
-                      ? Promise.resolve() 
+                    return result.isValid
+                      ? Promise.resolve()
                       : Promise.reject(result.error);
-                  }
-                }
+                  },
+                },
               ]}
             >
               <Input placeholder="e.g., SA-232322" maxLength={50} />
@@ -251,7 +256,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             <Form.Item
               name="member"
               label="Team Member"
-              rules={[{ required: true, message: 'Please select team member' }]}
+              rules={[{ required: true, message: "Please select team member" }]}
             >
               <Select showSearch placeholder="Select member">
                 <Select.Option value="Ahmed Abbas">Ahmed Abbas</Select.Option>
@@ -268,7 +273,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             <Form.Item
               name="budget"
               label="Budget Category"
-              rules={[{ required: true, message: 'Please select budget' }]}
+              rules={[{ required: true, message: "Please select budget" }]}
             >
               <Select>
                 <Select.Option value="General">General</Select.Option>
@@ -282,12 +287,12 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           </Col>
 
           {/* Status field only shown in edit mode */}
-          {mode === 'edit' && (
+          {mode === "edit" && (
             <Col span={12}>
               <Form.Item
                 name="status"
                 label="Status"
-                rules={[{ required: true, message: 'Please select status' }]}
+                rules={[{ required: true, message: "Please select status" }]}
               >
                 <Select>
                   <Select.Option value="Pending">Pending</Select.Option>
@@ -300,17 +305,15 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
         {/* Form Actions */}
         <Form.Item>
-          <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
-            <Button onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
+          <Space style={{ width: "100%", justifyContent: "flex-end" }}>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              type="primary"
+              htmlType="submit"
               loading={loading}
-              style={{ backgroundColor: '#14b8a6' }}
+              style={{ backgroundColor: "#14b8a6" }}
             >
-              {mode === 'create' ? 'Create' : 'Update'}
+              {mode === "create" ? "Create" : "Update"}
             </Button>
           </Space>
         </Form.Item>

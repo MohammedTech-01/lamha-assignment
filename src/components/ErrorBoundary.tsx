@@ -1,5 +1,5 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertCircle } from 'lucide-react';
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { AlertCircle } from "lucide-react";
 
 /**
  * Props interface for ErrorBoundary component
@@ -19,30 +19,30 @@ interface State {
 
 /**
  * ErrorBoundary Component
- * 
+ *
  * A React error boundary that catches JavaScript errors anywhere in the child
  * component tree, logs those errors, and displays a fallback UI instead of
  * crashing the entire application.
- * 
+ *
  * Error boundaries are React's way of handling errors gracefully in production.
  * They work like a JavaScript catch {} block, but for components.
- * 
+ *
  * Use cases:
  * - Wrap around feature components that might fail
  * - Wrap around third-party components
  * - Use at app level to prevent white screen of death
- * 
+ *
  * Note: Error boundaries do NOT catch errors in:
  * - Event handlers (use try/catch)
  * - Asynchronous code (e.g., setTimeout, promises)
  * - Server-side rendering
  * - Errors thrown in the error boundary itself
- * 
+ *
  * @example
  * <ErrorBoundary>
  *   <MyComponent />
  * </ErrorBoundary>
- * 
+ *
  * @example with custom fallback
  * <ErrorBoundary fallback={<CustomErrorPage />}>
  *   <MyComponent />
@@ -55,13 +55,13 @@ class ErrorBoundary extends Component<Props, State> {
    */
   state: State = {
     hasError: false,
-    error: null
+    error: null,
   };
 
   /**
    * Static lifecycle method called when an error is thrown
    * This method is called during the "render" phase, so side effects are not allowed
-   * 
+   *
    * @param {Error} error - The error that was thrown
    * @returns {State} - New state indicating an error has occurred
    */
@@ -74,14 +74,14 @@ class ErrorBoundary extends Component<Props, State> {
    * Lifecycle method called after an error has been thrown
    * This method is called during the "commit" phase, so side effects ARE allowed
    * Use this for error logging services
-   * 
+   *
    * @param {Error} error - The error that was thrown
    * @param {ErrorInfo} errorInfo - Object with componentStack key containing info about which component threw the error
    */
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log the error to console for development
-    console.error('Uncaught error:', error, errorInfo);
-    
+    console.error("Uncaught error:", error, errorInfo);
+
     // TODO: In production, send error details to error reporting service
     // Example services: Sentry, LogRocket, Bugsnag
     // if (process.env.NODE_ENV === 'production') {
@@ -122,12 +122,13 @@ class ErrorBoundary extends Component<Props, State> {
               <AlertCircle className="w-6 h-6" />
               <h2 className="text-lg font-semibold">Something went wrong</h2>
             </div>
-            
+
             {/* Error message */}
             <p className="text-gray-600 mb-4">
-              We're sorry, but something unexpected happened. Please try refreshing the page.
+              We're sorry, but something unexpected happened. Please try
+              refreshing the page.
             </p>
-            
+
             {/* Action buttons */}
             <div className="flex space-x-3">
               {/* Try Again button - attempts to reset error state */}
@@ -137,7 +138,7 @@ class ErrorBoundary extends Component<Props, State> {
               >
                 Try Again
               </button>
-              
+
               {/* Refresh button - hard refresh of the page */}
               <button
                 onClick={() => window.location.reload()}
@@ -146,11 +147,13 @@ class ErrorBoundary extends Component<Props, State> {
                 Refresh Page
               </button>
             </div>
-            
+
             {/* Development-only error details */}
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {process.env.NODE_ENV === "development" && this.state.error && (
               <details className="mt-4 p-4 bg-gray-100 rounded text-xs">
-                <summary className="cursor-pointer font-semibold">Error Details (Dev Only)</summary>
+                <summary className="cursor-pointer font-semibold">
+                  Error Details (Dev Only)
+                </summary>
                 <pre className="mt-2 whitespace-pre-wrap">
                   {this.state.error.toString()}
                   {this.state.error.stack}

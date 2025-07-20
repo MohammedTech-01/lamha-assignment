@@ -32,7 +32,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "docs": "npx typedoc --out docs src",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, Drawer, Avatar, Space, Typography } from 'antd';
-import type { MenuProps } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Menu, Drawer, Avatar, Space, Typography } from "antd";
+import type { MenuProps } from "antd";
 import {
   Home,
   TrendingUp,
@@ -11,41 +11,41 @@ import {
   Settings,
   Users,
   DollarSign,
-  X
-} from 'lucide-react';
-import { SidebarProps } from '../types';
-import lamhaLogo from '../assets/lamha.webp';
+  X,
+} from "lucide-react";
+import { SidebarProps } from "../types";
+import lamhaLogo from "../assets/lamha.webp";
 
 const { Text } = Typography;
 
 /**
  * Sidebar Component
- * 
+ *
  * A responsive navigation sidebar that adapts to different screen sizes:
  * - Desktop (lg and up): Fixed sidebar on the left side
  * - Mobile/Tablet (below lg): Drawer that slides in from the left
- * 
+ *
  * Features:
  * - Company logo/branding at the top
  * - Hierarchical navigation menu with icons
  * - User profile section at the bottom
  * - Collapsible submenu for Tax Report section
- * 
+ *
  * @param {SidebarProps} props - Component props
  * @param {string} props.className - Optional CSS classes to apply to desktop sidebar
  * @param {boolean} props.isMobileOpen - Controls mobile drawer visibility
  * @param {Function} props.onMobileClose - Callback when mobile drawer should close
  */
 const Sidebar: React.FC<SidebarProps> = ({
-  className = '',
+  className = "",
   isMobileOpen = false,
-  onMobileClose
+  onMobileClose,
 }) => {
   // Track which menu item is currently selected (default: transaction)
-  const [selectedKey, setSelectedKey] = useState<string>('transaction');
-  
+  const [selectedKey, setSelectedKey] = useState<string>("transaction");
+
   // Track which submenus are expanded (default: tax-report is open)
-  const [openKeys, setOpenKeys] = useState<string[]>(['tax-report']);
+  const [openKeys, setOpenKeys] = useState<string[]>(["tax-report"]);
 
   /**
    * Effect to prevent body scrolling when mobile sidebar is open
@@ -55,15 +55,15 @@ const Sidebar: React.FC<SidebarProps> = ({
   useEffect(() => {
     if (isMobileOpen) {
       // Disable body scroll when drawer is open
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
       // Re-enable body scroll when drawer is closed
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     // Cleanup function to ensure scroll is re-enabled when component unmounts
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isMobileOpen]);
 
@@ -72,72 +72,72 @@ const Sidebar: React.FC<SidebarProps> = ({
    * Each item represents a navigation option in the sidebar
    * Icons are from lucide-react for consistency
    */
-  const menuItems: MenuProps['items'] = [
+  const menuItems: MenuProps["items"] = [
     {
-      key: 'home',
+      key: "home",
       icon: <Home className="w-4 h-4" />,
-      label: 'Home',
+      label: "Home",
     },
     {
-      key: 'cash-flow',
+      key: "cash-flow",
       icon: <TrendingUp className="w-4 h-4" />,
-      label: 'Cash Flow',
+      label: "Cash Flow",
     },
     {
-      key: 'budget',
+      key: "budget",
       icon: <PieChart className="w-4 h-4" />,
-      label: 'Budget',
+      label: "Budget",
     },
     {
-      key: 'transaction',
+      key: "transaction",
       icon: <Receipt className="w-4 h-4" />,
-      label: 'Transaction',
+      label: "Transaction",
     },
     {
-      key: 'invoice',
+      key: "invoice",
       icon: <FileText className="w-4 h-4" />,
-      label: 'Invoice',
+      label: "Invoice",
     },
     {
-      key: 'bill-pay',
+      key: "bill-pay",
       icon: <CreditCard className="w-4 h-4" />,
-      label: 'Bill Pay',
+      label: "Bill Pay",
     },
     {
-      key: 'tax-report',
+      key: "tax-report",
       icon: <DollarSign className="w-4 h-4" />,
-      label: 'Tax Report',
+      label: "Tax Report",
       // Submenu items for tax-related features
       children: [
         {
-          key: 'vat',
-          label: 'VAT', // Value Added Tax
+          key: "vat",
+          label: "VAT", // Value Added Tax
         },
         {
-          key: 'withholding',
-          label: 'Withholding', // Withholding tax
+          key: "withholding",
+          label: "Withholding", // Withholding tax
         },
       ],
     },
     {
-      key: 'card',
+      key: "card",
       icon: <CreditCard className="w-4 h-4" />,
-      label: 'Card',
+      label: "Card",
     },
     {
-      key: 'team',
+      key: "team",
       icon: <Users className="w-4 h-4" />,
-      label: 'Team',
+      label: "Team",
     },
   ];
 
   /**
    * Handle menu item click
    * Updates the selected menu item when user clicks
-   * 
+   *
    * @param {MenuInfo} e - Click event info from Ant Design Menu
    */
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
     setSelectedKey(e.key);
     // Note: In a real app, you'd typically also handle navigation here
     // e.g., navigate(`/${e.key}`);
@@ -146,10 +146,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   /**
    * Handle submenu expand/collapse
    * Controls which submenus are open (currently only Tax Report has children)
-   * 
+   *
    * @param {string[]} keys - Array of open submenu keys
    */
-  const handleOpenChange: MenuProps['onOpenChange'] = (keys) => {
+  const handleOpenChange: MenuProps["onOpenChange"] = (keys) => {
     setOpenKeys(keys);
   };
 
@@ -170,9 +170,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             onError={(e) => {
               // If logo fails to load, hide it and show fallback
               const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
+              target.style.display = "none";
               const fallback = target.nextElementSibling as HTMLElement;
-              if (fallback) fallback.style.display = 'flex';
+              if (fallback) fallback.style.display = "flex";
             }}
           />
           {/* Fallback logo display (hidden by default) */}
@@ -180,7 +180,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <span className="text-white font-bold text-sm">Lamha</span>
           </div>
         </div>
-        
+
         {/* Close button - only visible on mobile/tablet (hidden on lg screens) */}
         <button
           onClick={onMobileClose}
@@ -201,8 +201,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           items={menuItems}
           className="border-r-0"
           style={{
-            borderRight: 'none', // Remove default Ant Design border
-            background: 'transparent'
+            borderRight: "none", // Remove default Ant Design border
+            background: "transparent",
           }}
         />
       </div>
@@ -213,17 +213,21 @@ const Sidebar: React.FC<SidebarProps> = ({
           {/* User avatar with initials */}
           <Avatar
             size={32}
-            style={{ backgroundColor: '#14b8a6' }} // Teal color matching the brand
+            style={{ backgroundColor: "#14b8a6" }} // Teal color matching the brand
           >
             AA {/* User initials - should be dynamic in real app */}
           </Avatar>
-          
+
           {/* User info */}
           <div className="flex-1">
-            <Text strong className="block text-sm">Ahmed Abbas</Text>
-            <Text type="secondary" className="text-xs">Admin</Text>
+            <Text strong className="block text-sm">
+              Ahmed Abbas
+            </Text>
+            <Text type="secondary" className="text-xs">
+              Admin
+            </Text>
           </div>
-          
+
           {/* Settings icon - clickable but action not implemented */}
           <Settings className="w-4 h-4 text-gray-400 cursor-pointer hover:text-gray-600" />
         </Space>

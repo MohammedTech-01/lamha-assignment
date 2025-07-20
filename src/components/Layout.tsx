@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import { LayoutProps } from '../types';
+import React, { useState } from "react";
+import { Button } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import { LayoutProps } from "../types";
 
 /**
  * Layout Component
- * 
+ *
  * Main application layout wrapper that provides the overall structure:
  * - Sidebar navigation (responsive)
  * - Header with title and filters
  * - Main content area
- * 
+ *
  * Responsive behavior:
  * - Desktop (lg+): Fixed sidebar on left, header at top of content area
  * - Tablet/Mobile (<lg): Collapsible sidebar drawer, simplified mobile header
- * 
+ *
  * @param {LayoutProps} props - Component props
  * @param {React.ReactNode} props.children - Page content to render in the main area
  */
@@ -53,14 +53,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           - On desktop: Always visible fixed sidebar
           - On mobile/tablet: Drawer that slides in/out
       */}
-      <Sidebar 
+      <Sidebar
         isMobileOpen={isMobileSidebarOpen}
         onMobileClose={closeMobileSidebar}
       />
-      
+
       {/* Main Content Area - Takes remaining space after sidebar */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        
         {/* Mobile/Tablet Header Bar
             - lg:hidden: Only visible on screens smaller than lg
             - Contains hamburger menu, page title, and spacer for centering
@@ -75,10 +74,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               onClick={toggleMobileSidebar}
               aria-label="Toggle menu" // Accessibility label
             />
-            
+
             {/* Page title - centered in mobile header */}
             <h1 className="text-lg font-semibold text-gray-900">Transaction</h1>
-            
+
             {/* Empty spacer to balance the layout and center the title */}
             <div className="w-9"></div>
           </div>
@@ -92,7 +91,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="hidden lg:block">
           <Header title="Transaction" />
         </div>
-        
+
         {/* Main Content Container */}
         <main className="flex-1 overflow-y-auto bg-gray-50">
           {/* Tablet-specific Header
@@ -107,7 +106,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Header title="Transaction" />
             </div>
           </div>
-          
+
           {/* Page Content
               - This is where the actual page components are rendered
               - Could be transaction tables, forms, dashboards, etc.
