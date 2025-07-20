@@ -35,16 +35,6 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
       label: 'Request reimbursement',
       onClick: () => message.info('Request reimbursement clicked!'),
     },
-    {
-      key: 'export',
-      label: 'Export data',
-      onClick: () => message.info('Export data clicked!'),
-    },
-    {
-      key: 'settings',
-      label: 'Settings',
-      onClick: () => message.info('Settings clicked!'),
-    },
   ];
 
   const handleSearch = (value: string) => {

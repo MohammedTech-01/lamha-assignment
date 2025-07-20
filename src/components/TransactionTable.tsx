@@ -4,6 +4,8 @@ import type { ColumnsType } from 'antd/es/table';
 import type { MenuProps } from 'antd';
 import { MoreOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { Transaction, TransactionTableProps } from '../types';
+import { SaudiRiyal } from 'lucide-react';
+
 
 const { Text, Title } = Typography;
 
@@ -17,11 +19,24 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
   };
 
   const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
+    return new Intl.NumberFormat('en-SA', {
     }).format(amount);
   };
+
+
+  type AmountProps = {
+    amount: number;
+  };
+
+  const AmountWithIcon = ({ amount }: AmountProps) => {
+    return (
+      <div className="flex items-center gap-1 text-gray-800">
+        <SaudiRiyal className="w-3 h-3 text-black" />
+        <span>{formatAmount(amount)}</span>
+      </div>
+    );
+  };
+
 
   const actionItems: MenuProps['items'] = [
     {
@@ -80,7 +95,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',
-      render: (amount) => formatAmount(amount),
+      render: (amount: number) => <AmountWithIcon amount={amount} />,
     },
     {
       title: 'Actions',
@@ -108,7 +123,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
           </Dropdown>
         </Space>
       </div>
-      
+
       <div className="grid grid-cols-2 gap-3 mt-3">
         <div>
           <Text type="secondary" className="text-xs">Member</Text>
@@ -116,7 +131,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
         </div>
         <div>
           <Text type="secondary" className="text-xs">Amount</Text>
-          <div><Text strong>{formatAmount(transaction.amount)}</Text></div>
+          <div><Text strong><AmountWithIcon amount={transaction.amount} /></Text></div>
         </div>
         <div>
           <Text type="secondary" className="text-xs">Budget</Text>
@@ -127,7 +142,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
           <div><Text>{transaction.type}</Text></div>
         </div>
       </div>
-      
+
       {transaction.invoiceNumber && (
         <div className="mt-2">
           <Text type="secondary" className="text-xs">Invoice #: </Text>

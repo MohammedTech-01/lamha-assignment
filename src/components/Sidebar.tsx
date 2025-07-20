@@ -112,7 +112,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex items-center space-x-3">
           <img 
             src="/lamha.webp"
-            alt="FinanceApp Logo" 
+            alt="Logo" 
             className="w-8 h-8 object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
@@ -121,8 +121,8 @@ const Sidebar: React.FC<SidebarProps> = ({
               if (fallback) fallback.style.display = 'flex';
             }}
           />
-          <div className="w-8 h-8 bg-teal-500 rounded-lg hidden items-center justify-center">
-            <span className="text-white font-bold text-sm">L</span>
+          <div className="w-12 h-10 bg-teal-500 rounded-lg hidden items-center justify-center">
+            <span className="text-white font-bold text-sm">Lamha</span>
           </div>
         </div>
         {/* Close button for mobile/tablet */}

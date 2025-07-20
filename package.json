@@ -2,6 +2,7 @@
   "name": "lamha-assignment",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://MohammedTech.01.github.io/lamha-assignment",
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@testing-library/dom": "^10.4.0",
@@ -13,6 +14,7 @@
     "axios": "^1.10.0",
     "dayjs": "^1.11.10",
     "framer-motion": "^12.23.6",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -27,7 +29,9 @@
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage",
     "test:specific": "react-scripts test --testPathPattern=\"(Sidebar|TransactionTable|validation)\\.test\" --coverage --collectCoverageFrom=\"src/components/Sidebar.tsx\" --collectCoverageFrom=\"src/components/TransactionTable.tsx\" --collectCoverageFrom=\"src/utils/validation.ts\"",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
