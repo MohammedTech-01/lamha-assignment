@@ -15,15 +15,13 @@ import type { MenuProps } from 'antd';
 import {
   SearchOutlined,
   DownOutlined,
-  PlusOutlined,
-  CalendarOutlined
+  PlusOutlined
 } from '@ant-design/icons';
 import { HeaderProps } from '../types';
 import { validateSearchQuery, validateDateRange, validateStatus } from '../utils/validation';
-import TransactionForm from './TransactionForm'; // adjust path if needed
+import TransactionForm from './TransactionForm';
 import dayjs from 'dayjs';
 
-// Extract RangePicker component from DatePicker
 const { RangePicker } = DatePicker;
 
 /**
@@ -49,18 +47,15 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 
   // Track active tab (Transaction vs Draft)
   const [activeTab, setActiveTab] = useState('transaction');
-
   const [isFormVisible, setFormVisible] = useState(false);
 
   const handleOpenForm = () => setFormVisible(true);
   const handleCloseForm = () => setFormVisible(false);
 
-  // You can handle submission however you prefer, here's a stub:
   const handleSubmitForm = (data: any) => {
     console.log('Submitted Transaction:', data);
-    setFormVisible(false); // Close modal after submission
+    setFormVisible(false);
   };
-
 
   /**
    * Dropdown menu configuration for "Other action" button
@@ -139,140 +134,137 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   };
 
   return (
-    // Main header container with white background
-    <div className="bg-white lg:border-b lg:border-gray-200">
-      <div className="lg:px-6 lg:py-4">
+    <>
+      {/* Main header container with white background */}
+      <div className="bg-white lg:border-b lg:border-gray-200">
+        <div className="lg:px-6 lg:py-4">
+          {/* Desktop-only Title and Action Section
+              - hidden lg:flex: Hidden on mobile/tablet, visible on desktop
+              - Contains page title and action buttons
+              - mb-6: Bottom margin for spacing
+          */}
+          <div className="hidden lg:flex items-center justify-between mb-6">
+            {/* Page title - dynamic based on current page */}
+            <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
 
-        {/* Desktop-only Title and Action Section
-            - hidden lg:flex: Hidden on mobile/tablet, visible on desktop
-            - Contains page title and action buttons
-            - mb-6: Bottom margin for spacing
-        */}
-        <div className="hidden lg:flex items-center justify-between mb-6">
-          {/* Page title - dynamic based on current page */}
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+            {/* Action buttons container */}
+            <Space size="middle">
+              {/* Dropdown for additional actions */}
+              <Dropdown menu={{ items: dropdownItems }} trigger={['click']}>
+                <Button>
+                  Other action <DownOutlined />
+                </Button>
+              </Dropdown>
 
-          {/* Action buttons container */}
-          <Space size="middle">
-            {/* Dropdown for additional actions */}
-            <Dropdown menu={{ items: dropdownItems }} trigger={['click']}>
-              <Button>
-                Other action <DownOutlined />
+              {/* Primary CTA button with brand color */}
+              <Button
+                type="primary"
+                style={{ backgroundColor: '#14b8a6' }}
+                onClick={handleOpenForm}
+              >
+                Create New
               </Button>
-            </Dropdown>
-
-            {/* Primary CTA button with brand color */}
-            <Button
-              type="primary"
-              style={{ backgroundColor: '#14b8a6' }}
-              onClick={handleOpenForm}
-            >
-              Create New
-            </Button>
-          </Space>
-        </div>
-
-        {/* Tab Navigation Section
-            - Allows switching between Transaction and Draft views
-            - Visible on all screen sizes
-        */}
-        <div className="mb-4 md:mb-6">
-          <Tabs
-            activeKey={activeTab}
-            onChange={setActiveTab}
-            items={[
-              { key: 'transaction', label: 'Transaction' },
-              { key: 'draft', label: 'Draft' },
-            ]}
-          />
-        </div>
-
-        {/* Search and Filter Controls
-            - Uses Ant Design Form for consistent layout
-            - Responsive layout changes based on screen size
-        */}
-        <Form form={form} layout="inline" className="w-full">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
-
-            {/* Search Input
-                - Full width on mobile, max-width on larger screens
-                - Includes search icon and clear button
-            */}
-            <Form.Item className="flex-1 sm:max-w-md mb-0">
-              <Input
-                placeholder="Search"
-                prefix={<SearchOutlined />}
-                onPressEnter={(e) => handleSearch(e.currentTarget.value)}
-                allowClear // Shows X button to clear input
-                size="large"
-              />
-            </Form.Item>
-
-            {/* Filter Controls Container */}
-            <Space wrap size="middle">
-
-              {/* Status Filter Dropdown
-                  - Available on all screen sizes
-                  - Options: Pending, Approved
-              */}
-              <Form.Item className="mb-0">
-                <Select
-                  placeholder="Status"
-                  style={{ width: 120 }}
-                  onChange={handleStatusChange}
-                  allowClear // Allows clearing selection
-                  size="large"
-                  options={[
-                    { value: 'pending', label: 'Pending' },
-                    { value: 'approved', label: 'Approved' },
-                  ]}
-                />
-              </Form.Item>
-
-              {/* Date Range Filter
-                  - hidden sm:block: Hidden on mobile, visible on tablet and desktop
-                  - Allows selecting a date range for filtering
-                  - Disables future dates (can't select dates after today)
-              */}
-              <Form.Item className="hidden sm:block mb-0">
-                <RangePicker
-                  size="large"
-                  onChange={handleDateRangeChange}
-                  disabledDate={(current) => current && current > dayjs().endOf('day')}
-                  format="YYYY-MM-DD"
-                />
-              </Form.Item>
             </Space>
           </div>
-        </Form>
 
-        {/* Mobile/Tablet Floating Action Button
-            - lg:hidden: Only visible on mobile and tablet
-            - Fixed position at bottom right of screen
-            - Replaces the "Create New" button from desktop header
-            - Uses brand color for consistency
-        */}
-        <FloatButton
-          className="lg:hidden"
-          type="primary"
-          style={{
-            backgroundColor: '#14b8a6',
-            right: 24,
-            bottom: 24
-          }}
-          icon={<PlusOutlined />}
-          onClick={handleOpenForm}
-        />
+          {/* Tab Navigation Section
+              - Allows switching between Transaction and Draft views
+              - Visible on all screen sizes
+          */}
+          <div className="mb-4 md:mb-6">
+            <Tabs
+              activeKey={activeTab}
+              onChange={setActiveTab}
+              items={[
+                { key: 'transaction', label: 'Transaction' },
+                { key: 'draft', label: 'Draft' },
+              ]}
+            />
+          </div>
 
+          {/* Search and Filter Controls
+              - Uses Ant Design Form for consistent layout
+              - Responsive layout changes based on screen size
+          */}
+          <Form form={form} layout="inline" className="w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
+              {/* Search Input
+                  - Full width on mobile, max-width on larger screens
+                  - Includes search icon and clear button
+              */}
+              <Form.Item className="flex-1 sm:max-w-md mb-0">
+                <Input
+                  placeholder="Search"
+                  prefix={<SearchOutlined />}
+                  onPressEnter={(e) => handleSearch(e.currentTarget.value)}
+                  allowClear // Shows X button to clear input
+                  size="large"
+                />
+              </Form.Item>
+
+              {/* Filter Controls Container */}
+              <Space wrap size="middle">
+                {/* Status Filter Dropdown
+                    - Available on all screen sizes
+                    - Options: Pending, Approved
+                */}
+                <Form.Item className="mb-0">
+                  <Select
+                    placeholder="Status"
+                    style={{ width: 120 }}
+                    onChange={handleStatusChange}
+                    allowClear // Allows clearing selection
+                    size="large"
+                    options={[
+                      { value: 'pending', label: 'Pending' },
+                      { value: 'approved', label: 'Approved' },
+                    ]}
+                  />
+                </Form.Item>
+
+                {/* Date Range Filter
+                    - hidden sm:block: Hidden on mobile, visible on tablet and desktop
+                    - Allows selecting a date range for filtering
+                    - Disables future dates (can't select dates after today)
+                */}
+                <Form.Item className="hidden sm:block mb-0">
+                  <RangePicker
+                    size="large"
+                    onChange={handleDateRangeChange}
+                    disabledDate={(current) => current && current > dayjs().endOf('day')}
+                    format="YYYY-MM-DD"
+                  />
+                </Form.Item>
+              </Space>
+            </div>
+          </Form>
+
+          {/* Mobile/Tablet Floating Action Button
+              - lg:hidden: Only visible on mobile and tablet
+              - Fixed position at bottom right of screen
+              - Replaces the "Create New" button from desktop header
+              - Uses brand color for consistency
+          */}
+          <FloatButton
+            className="lg:hidden"
+            type="primary"
+            style={{
+              backgroundColor: '#14b8a6',
+              right: 24,
+              bottom: 24
+            }}
+            icon={<PlusOutlined />}
+            onClick={handleOpenForm}
+          />
+        </div>
       </div>
+
       <TransactionForm
         visible={isFormVisible}
         onClose={handleCloseForm}
         onSubmit={handleSubmitForm}
       />
-
-    </div>
-
+    </>
   );
 };
 

@@ -22,15 +22,6 @@ export interface ValidationResult {
 }
 
 /**
- * Date range interface for structured date validation
- * Used when dates need to be parsed from string format
- */
-export interface DateRange {
-  startDate: string;     // Format: YYYY-MM-DD
-  endDate: string;       // Format: YYYY-MM-DD
-}
-
-/**
  * Search Query Validation
  * 
  * Validates user search input to prevent:
@@ -89,7 +80,7 @@ export const validateSearchQuery = (query: string): ValidationResult => {
  * validateDateRange("2024-01-01 - 2024-01-31") // { isValid: true }
  * validateDateRange("2024-01-31 - 2024-01-01") // { isValid: false, error: "Start date must be before end date" }
  */
-export function validateDateRange(range: string): { isValid: boolean; error?: string } {
+export const validateDateRange = (range: string): ValidationResult => {
   // Empty range is valid (no filter applied)
   if (!range) return { isValid: true };
   
@@ -128,7 +119,7 @@ export function validateDateRange(range: string): { isValid: boolean; error?: st
   // - Minimum date (e.g., system inception date)
   
   return { isValid: true };
-}
+};
 
 /**
  * Status Validation
@@ -258,7 +249,6 @@ export const validateInvoiceNumber = (invoiceNumber: string): ValidationResult =
 
   return { isValid: true };
 };
-
 
 /**
  * Vendor Name Validation

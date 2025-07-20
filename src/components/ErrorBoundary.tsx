@@ -53,7 +53,7 @@ class ErrorBoundary extends Component<Props, State> {
    * Initialize component state
    * By default, no error has occurred
    */
-  public state: State = {
+  state: State = {
     hasError: false,
     error: null
   };
@@ -65,7 +65,7 @@ class ErrorBoundary extends Component<Props, State> {
    * @param {Error} error - The error that was thrown
    * @returns {State} - New state indicating an error has occurred
    */
-  public static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): State {
     // Update state so the next render will show the fallback UI
     return { hasError: true, error };
   }
@@ -78,7 +78,7 @@ class ErrorBoundary extends Component<Props, State> {
    * @param {Error} error - The error that was thrown
    * @param {ErrorInfo} errorInfo - Object with componentStack key containing info about which component threw the error
    */
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log the error to console for development
     console.error('Uncaught error:', error, errorInfo);
     
@@ -93,7 +93,7 @@ class ErrorBoundary extends Component<Props, State> {
    * Reset error state to try rendering children again
    * This allows users to recover from errors without refreshing the page
    */
-  private handleReset = () => {
+  handleReset = () => {
     this.setState({ hasError: false, error: null });
     // Note: This will attempt to render the children again
     // If the error condition still exists, it will error again
@@ -103,7 +103,7 @@ class ErrorBoundary extends Component<Props, State> {
    * Render method
    * Shows either the children (normal case) or error UI (error case)
    */
-  public render() {
+  render() {
     // Check if an error has been caught
     if (this.state.hasError) {
       // If custom fallback UI was provided, use it

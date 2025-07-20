@@ -13,7 +13,7 @@ import {
   DollarSign,
   X
 } from 'lucide-react';
-import { SidebarItem, SidebarProps } from '../types';
+import { SidebarProps } from '../types';
 import lamhaLogo from '../assets/lamha.webp';
 
 const { Text } = Typography;
@@ -91,7 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     {
       key: 'transaction',
       icon: <Receipt className="w-4 h-4" />,
-      label: 'Transaction', // This is selected by default
+      label: 'Transaction',
     },
     {
       key: 'invoice',

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Layout as AntLayout, Button } from 'antd';
+import { Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import { LayoutProps } from '../types';
-
-const { Content } = AntLayout;
 
 /**
  * Layout Component

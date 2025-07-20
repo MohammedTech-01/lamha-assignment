@@ -1,11 +1,10 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Sidebar from '../Sidebar';
 
 // Mock Ant Design components
 jest.mock('antd', () => ({
-  Menu: ({ children, items, onClick }: any) => (
+  Menu: ({ items, onClick }: any) => (
     <div data-testid="menu">
       {items?.map((item: any) => (
         <div 

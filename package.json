@@ -31,6 +31,7 @@
     "test:specific": "react-scripts test --testPathPattern=\"(Sidebar|TransactionTable|validation)\\.test\" --coverage --collectCoverageFrom=\"src/components/Sidebar.tsx\" --collectCoverageFrom=\"src/components/TransactionTable.tsx\" --collectCoverageFrom=\"src/utils/validation.ts\"",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
+    "docs": "npx typedoc --out docs src",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -56,6 +57,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "autoprefixer": "^10.4.21",
+    "jsdoc-plugin-typescript": "^3.2.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17"
   }

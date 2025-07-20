@@ -19,7 +19,9 @@ import {
   validateVendorName,
 } from '../utils/validation';
 
-// Simple form data interface
+/**
+ * Form data interface
+ */
 interface FormData {
   date: string;
   type: string;
@@ -32,6 +34,9 @@ interface FormData {
   description?: string;
 }
 
+/**
+ * Props interface for TransactionForm component
+ */
 interface TransactionFormProps {
   visible: boolean;
   onClose: () => void;
@@ -41,8 +46,17 @@ interface TransactionFormProps {
 }
 
 /**
- * Simple Transaction Form
- * Clean and easy to understand form implementation
+ * TransactionForm Component
+ * 
+ * A form modal for creating or editing financial transactions.
+ * Features validation, responsive layout, and clean error handling.
+ * 
+ * @param {TransactionFormProps} props - Component props
+ * @param {boolean} props.visible - Controls modal visibility
+ * @param {Function} props.onClose - Callback when form is closed
+ * @param {Function} props.onSubmit - Callback when form is submitted
+ * @param {FormData} props.initialData - Initial form values for edit mode
+ * @param {string} props.mode - Form mode ('create' or 'edit')
  */
 const TransactionForm: React.FC<TransactionFormProps> = ({
   visible,
@@ -54,7 +68,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
-  // Handle form submission
+  /**
+   * Handle form submission
+   * Formats data and calls parent submit function
+   */
   const handleSubmit = async (values: any) => {
     try {
       setLoading(true);
@@ -83,7 +100,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
     }
   };
 
-  // Close handler with confirmation
+  /**
+   * Handle modal close
+   * Resets form before closing
+   */
   const handleClose = () => {
     form.resetFields();
     onClose();
@@ -102,10 +122,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         layout="vertical"
         onFinish={handleSubmit}
         initialValues={{
-        type: 'Expense',
-        budget: 'General',
-        ...initialData,
-        date: initialData?.date ? dayjs(initialData.date) : dayjs()
+          type: 'Expense',
+          budget: 'General',
+          ...initialData,
+          date: initialData?.date ? dayjs(initialData.date) : dayjs()
         }}
       >
         {/* Date and Type Row */}
@@ -261,6 +281,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             </Form.Item>
           </Col>
 
+          {/* Status field only shown in edit mode */}
           {mode === 'edit' && (
             <Col span={12}>
               <Form.Item

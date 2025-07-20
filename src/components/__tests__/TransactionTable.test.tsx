@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TransactionTable from '../TransactionTable';
@@ -6,7 +5,7 @@ import { Transaction } from '../../types';
 
 // Mock Ant Design components
 jest.mock('antd', () => ({
-  Table: ({ columns, dataSource }: any) => (
+  Table: ({ dataSource }: any) => (
     <div data-testid="transaction-table">
       {dataSource.map((item: any, index: number) => (
         <div key={index} data-testid={`table-row-${index}`}>

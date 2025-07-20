@@ -3,10 +3,10 @@ import { Table, Tag, Card, Space, Typography, Dropdown, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import type { MenuProps } from 'antd';
 import { MoreOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { Transaction, TransactionTableProps } from '../types';
 import { SaudiRiyal } from 'lucide-react';
+import { Transaction, TransactionTableProps } from '../types';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 /**
  * TransactionTable Component
@@ -45,17 +45,12 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
     }).format(amount);
   };
 
-  // Type definition for the AmountWithIcon component props
-  type AmountProps = {
-    amount: number;
-  };
-
   /**
    * Component that displays an amount with the Saudi Riyal currency icon
    * @param {AmountProps} props - Component props containing the amount
    * @returns {JSX.Element} Formatted amount with currency icon
    */
-  const AmountWithIcon = ({ amount }: AmountProps) => {
+  const AmountWithIcon = ({ amount }: { amount: number }) => {
     return (
       <div className="flex items-center gap-1 text-gray-800">
         {/* Saudi Riyal icon from lucide-react */}
