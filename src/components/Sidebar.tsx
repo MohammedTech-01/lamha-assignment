@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, Drawer, Avatar, Space, Typography } from 'antd';
 import type { MenuProps } from 'antd';
-import { 
-  Home, 
-  TrendingUp, 
-  PieChart, 
-  Receipt, 
-  CreditCard, 
-  FileText, 
+import {
+  Home,
+  TrendingUp,
+  PieChart,
+  Receipt,
+  CreditCard,
+  FileText,
   Settings,
   Users,
   DollarSign,
   X
 } from 'lucide-react';
 import { SidebarItem, SidebarProps } from '../types';
+import lamhaLogo from '../assets/lamha.webp';
 
 const { Text } = Typography;
 
-const Sidebar: React.FC<SidebarProps> = ({ 
-  className = '', 
-  isMobileOpen = false, 
-  onMobileClose 
+const Sidebar: React.FC<SidebarProps> = ({
+  className = '',
+  isMobileOpen = false,
+  onMobileClose
 }) => {
   const [selectedKey, setSelectedKey] = useState<string>('transaction');
   const [openKeys, setOpenKeys] = useState<string[]>(['tax-report']);
@@ -110,9 +111,9 @@ const Sidebar: React.FC<SidebarProps> = ({
       {/* Logo/Brand */}
       <div className="p-6 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <img 
-            src="/lamha.webp"
-            alt="Logo" 
+          <img
+            src={lamhaLogo}
+            alt="Logo"
             className="w-8 h-8 object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
@@ -144,7 +145,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           onOpenChange={handleOpenChange}
           items={menuItems}
           className="border-r-0"
-          style={{ 
+          style={{
             borderRight: 'none',
             background: 'transparent'
           }}
@@ -154,8 +155,8 @@ const Sidebar: React.FC<SidebarProps> = ({
       {/* User Profile */}
       <div className="p-4 border-t border-gray-200 bg-white">
         <Space size="middle" className="w-full">
-          <Avatar 
-            size={32} 
+          <Avatar
+            size={32}
             style={{ backgroundColor: '#14b8a6' }}
           >
             AA
