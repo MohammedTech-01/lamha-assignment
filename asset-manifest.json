@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/lamha-assignment/static/css/main.847b465e.css",
-    "main.js": "/lamha-assignment/static/js/main.83684731.js",
+    "main.css": "/lamha-assignment/static/css/main.057917b1.css",
+    "main.js": "/lamha-assignment/static/js/main.5918b8d5.js",
     "index.html": "/lamha-assignment/index.html",
-    "main.847b465e.css.map": "/lamha-assignment/static/css/main.847b465e.css.map",
-    "main.83684731.js.map": "/lamha-assignment/static/js/main.83684731.js.map"
+    "main.057917b1.css.map": "/lamha-assignment/static/css/main.057917b1.css.map",
+    "main.5918b8d5.js.map": "/lamha-assignment/static/js/main.5918b8d5.js.map"
   },
   "entrypoints": [
-    "static/css/main.847b465e.css",
-    "static/js/main.83684731.js"
+    "static/css/main.057917b1.css",
+    "static/js/main.5918b8d5.js"
   ]
 }
